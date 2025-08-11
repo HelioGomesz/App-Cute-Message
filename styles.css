@@ -1,0 +1,121 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fundo com cor suave e bolhas delicadas */
+body {
+  background: #2c6b92; /* azul pastel bem claro */
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #0b2b45; /* azul escuro suave */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fundo com bolhas animadas */
+body::before {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 2rem;
+  color: #a9cce3; /* azul pastel */
+  opacity: 0.15;
+  user-select: none;
+  pointer-events: none;
+  animation: floatBubbles 12s linear infinite;
+}
+
+@keyframes floatBubbles {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-150px); }
+}
+
+/* Container fofinho */
+.container {
+  background: rgb(194, 210, 235);
+  padding: 40px 50px;
+  border-radius: 30px;
+  box-shadow: 0 12px 40px rgba(94, 151, 181, 0.3);
+  width: 360px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Título */
+h1 {
+  font-family: 'Roboto Slab', serif;
+  color: #5396c3; /* azul médio */
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-shadow: 0 1px 3px #8ebbc9;
+}
+
+/* Área da mensagem */
+.message {
+  min-height: 140px;
+  font-size: 1.2rem;
+  color: #445b6e; /* azul escuro suave */
+  margin-bottom: 35px;
+  white-space: pre-wrap;
+  font-style: italic;
+  line-height: 1.5;
+  border: 2px solid #a3c1d8;
+  border-radius: 20px;
+  padding: 20px;
+  background: #dff1ff; /* azul muito claro */
+  box-shadow: inset 0 0 15px #a3c1d8;
+}
+
+/* Botão fofo */
+button {
+  background-color: #7fb6d9; /* azul pastel */
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(127, 182, 217, 0.6);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #5a8fb8; /* azul um pouco mais escuro */
+  transform: scale(1.05);
+}
+
+/* Corações flutuantes - efeito partículas */
+@keyframes floatHearts {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-150px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.heart {
+  position: fixed; /* pra não interferir no layout */
+  font-size: 1.5rem;
+  color: #5396c3; /* tom azul médio para combinar */
+  animation-name: floatHearts;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  opacity: 0.8;
+  user-select: none;
+  pointer-events: none;
+  animation-fill-mode: forwards;
+  z-index: 0; /* atrás do conteúdo */
+}
