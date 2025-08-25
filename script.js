@@ -1,79 +1,73 @@
+// Lista de mensagens que serão exibidas na tela, uma de cada vez
 const messages = [
-  "Ai que não da 16:48",
-  "Se você me odeia você fala",
-  "Oiiiiiiiiiii",
-  "sdds",
-  "Ai",
-  "Esse é o tipo de coisa",
-  "Que quase consigo te ouvir falando kkkkkkk",
-  "Tudo bem por ai ?",
-  "Espero que sim bb",
-  "Ansioso pra sair com vc de novo",
-  "No date 2.5 claro claro",
-  "E sim eu gostei do PDL",
-  "Só foi rápido msm, mas tudo bem :)", 
-  "Teremos mais oportunidades",
-  "Inclusive",
-  "Para onde vamos na próxima ?",
-  "Até lá a gente pensa em algo legal né",
-  "Mas se já tiver uma ideia, a gente vê",
-  "Enfim, beijo ❤️❤️❤️",
-  "Com carinho, hélio"
+  "Oii tudo bem ? ;)",
+  // Adicione mais mensagens aqui, cada linha será mostrada na sequência
 ];
 
-let index = 0;
-let typingInterval = null;
-let isTyping = false;
+// Variáveis de controle
+let index = 0;             // Indica qual mensagem do array está sendo exibida
+let typingInterval = null; // Guarda o intervalo do efeito de digitação
+let isTyping = false;      // Indica se a mensagem ainda está sendo "digitada"
 
-const popSound = new Audio('sounds/pop.mp3');
-popSound.volume = 0.3;
+// Sons utilizados
+const popSound = new Audio('sounds/pop.mp3'); // Som de clique do botão
+popSound.volume = 0.3; // Define volume do som do clique (0 a 1)
 
-const finalMusic = new Audio('sounds/finalMusic.mp3');
-finalMusic.volume = 0.5;
+const finalMusic = new Audio('sounds/finalMusic.mp3'); // Música final
+finalMusic.volume = 0.5; // Define volume da música
 
-const messageElement = document.getElementById("message");
-const button = document.getElementById("nextButton");
+// Referências aos elementos HTML
+const messageElement = document.getElementById("message"); // Onde o texto aparece
+const button = document.getElementById("nextButton");      // Botão de avançar
 
+// Função que mostra a mensagem atual com efeito de digitação
 function showMessage() {
-  const currentMessage = messages[index];
-  let i = 0;
-  messageElement.textContent = "";
-  isTyping = true;
+  const currentMessage = messages[index]; // Pega a mensagem atual
+  let i = 0;                              // Índice de cada caractere
+  messageElement.textContent = "";        // Limpa o texto da tela
+  isTyping = true;                        // Marca que está "digitando"
 
+  // Cria intervalo para adicionar uma letra a cada 50ms
   typingInterval = setInterval(() => {
     if (i < currentMessage.length) {
+      // Adiciona o próximo caractere na tela
       messageElement.textContent += currentMessage.charAt(i);
       i++;
     } else {
+      // Se terminou de digitar, limpa o intervalo
       clearInterval(typingInterval);
       typingInterval = null;
       isTyping = false;
 
-      if (index === messages.length -1) {
-        button.disabled = true;
-        finalMusic.play();
+      // Caso seja a última mensagem do array
+      if (index === messages.length - 1) {
+        button.disabled = true;  // Desativa o botão
+        finalMusic.play();       // Toca música final
       }
     }
-  }, 50);
+  }, 50); // Intervalo de 50ms entre cada caractere
 }
 
+// Evento de clique no botão "Próximo"
 button.addEventListener("click", () => {
-  popSound.currentTime = 0;
-  popSound.play();
+  popSound.currentTime = 0; // Reseta o som para tocar do início
+  popSound.play();          // Reproduz o som de clique
 
   if (isTyping) {
-    // Se estiver digitando, termina a mensagem imediatamente
+    // Se a mensagem ainda está sendo digitada, mostra ela inteira de uma vez
     clearInterval(typingInterval);
     typingInterval = null;
-    messageElement.textContent = messages[index];
+    messageElement.textContent = messages[index]; // Exibe texto completo
     isTyping = false;
   } else {
-    // Avança para a próxima mensagem e começa a digitar
-    if (index < messages.length -1) {
-      index++;
-      showMessage();
+    // Se já terminou de digitar, avança para a próxima mensagem
+    if (index < messages.length - 1) {
+      index++;        // Vai para a próxima mensagem
+      showMessage();  // Exibe a mensagem com efeito de digitação
     }
   }
 });
 
+// Quando a página carregar, exibe a primeira mensagem automaticamente
 window.onload = showMessage;
+
